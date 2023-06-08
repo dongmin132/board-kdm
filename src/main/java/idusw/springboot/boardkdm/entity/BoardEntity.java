@@ -1,6 +1,7 @@
 package idusw.springboot.boardkdm.entity;
 import lombok.*;
 import jakarta.persistence.*;
+import org.hibernate.sql.results.graph.Fetch;
 
 @Entity
 @Table(name = "a201912018_board")
@@ -25,7 +26,7 @@ public class BoardEntity extends BaseEntity {
 //    private Long views; // 조회수
 //    private String block; // 차단여부
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private MemberEntity writer;  //연관 관계 지정 : 게시물 다수 - 작성자 1명
 }
 

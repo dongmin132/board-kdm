@@ -19,6 +19,7 @@ public class Reply {
     private String replier;
     private Long bno; // board 와 ManyToOne 관계
 
+
     private LocalDateTime regDate;
     private LocalDateTime modDate;
 }

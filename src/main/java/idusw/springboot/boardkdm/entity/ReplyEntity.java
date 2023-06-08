@@ -21,7 +21,7 @@ public class ReplyEntity extends BaseEntity {
 
     private String text; // 댓글 내용
     private String replier; // 댓글 사용자
-
+    //private int replyCount;
     @ManyToOne(fetch = FetchType.LAZY)
     private BoardEntity board; // BoardEntity : MemberEntity = N : 1,
 

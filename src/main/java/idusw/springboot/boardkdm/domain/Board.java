@@ -17,7 +17,7 @@ public class Board {
     private Long bno;
     private String title;
     private String content;
-
+    private Long replyCount;
     //join
     private Long writerSeq;
     private String writerEmail;

@@ -3,6 +3,7 @@ package idusw.springboot.boardkdm.controller;
 import idusw.springboot.boardkdm.domain.Board;
 import idusw.springboot.boardkdm.domain.Member;
 import idusw.springboot.boardkdm.domain.PageRequestDTO;
+import idusw.springboot.boardkdm.domain.PageResultDTO;
 import idusw.springboot.boardkdm.service.BoardService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -53,7 +54,9 @@ public class BoardController {
     @GetMapping("")
     public String getBoards(PageRequestDTO pageRequestDTO, Model model) { // 중간 본 수정
 
-            model.addAttribute("list", boardService.findBoardAll(pageRequestDTO));
+        PageResultDTO<Board,Object[]> pageResultDTO = boardService.findBoardAll(pageRequestDTO);
+        model.addAttribute("list",pageResultDTO);
+        // model.addAttribute("list", boardService.findBoardAll(pageRequestDTO));
 
         return "/boards/list";
     }
@@ -62,16 +65,16 @@ public class BoardController {
     public String getBoardByBno(@PathVariable("bno") Long bno, Model model) {
         // Long bno 값을 사용하는 방식을 Board 객체에 bno를 설정하여 사용하는 방식으로 변경
         Board board = boardService.findBoardById(Board.builder().bno(bno).build());
-        boardService.updateBoard(board);
-        model.addAttribute("dto", boardService.findBoardById(board));
-        return "detail";
+        //boardService.updateBoard(board);
+        model.addAttribute("board", board);
+        return "boards/detail";
     }
 
     @GetMapping("/{bno}/up-form")
     public String getUpForm(@PathVariable("bno") Long bno, Model model) {
         Board board = boardService.findBoardById(Board.builder().bno(bno).build());
         model.addAttribute("board", board);
-        return "/boards/upform";
+        return "/boards/up-form";
     }
 
     @PutMapping("/{bno}")
