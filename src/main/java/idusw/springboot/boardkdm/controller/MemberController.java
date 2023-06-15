@@ -31,7 +31,7 @@ public class MemberController {
     public String getLoginForm(Model model) {
         //memberService.toString
         model.addAttribute("member", Member.builder().build());
-        return "/members/login";
+        return "/members/login1";
     }
 
     @PostMapping("/login")
@@ -52,7 +52,7 @@ public class MemberController {
     public String getRegisterForm(Model model) {
         // Member 형의 객체를 생성하고,
         model.addAttribute("member", Member.builder().build());
-        return "/members/register";     //reg-form.html, view resolving
+        return "/members/register1";     //reg-form.html, view resolving
     }
 
 
@@ -111,22 +111,34 @@ public class MemberController {
                                        @RequestParam(value="perPagination", required = false, defaultValue="5") int perPagination,
                                        @RequestParam(value="type", required = false, defaultValue="e") String type,
                                        @RequestParam(value="keyword", required = false, defaultValue="@") String keyword,//현재페이지
-                                       Model model)    {
+                                       Model model,
+                                       HttpServletRequest request)    {
     PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-            .page(page)
-            .perPage(perPage)
-            .perPagination(perPagination)
-            .type(type)
-            .keyword(keyword)
-            .build();
+                .page(page)
+                .perPage(perPage)
+                .perPagination(perPagination)
+                .type(type)
+                .keyword(keyword)
+                .build();
         PageResultDTO<Member, MemberEntity> resultDTO = memberService.getList(pageRequestDTO);
+        session = request.getSession();
+        Member member = (Member) session.getAttribute("mb");
         //List<Member> result = resultDTO.getDtoList();
-        if(resultDTO != null) {
-            model.addAttribute("result", resultDTO);
-            return "/members/list";
+        if (member != null) {
+            if (member.getEmail().equals("root201912018@induk.ac.kr")) {
+                model.addAttribute("result", resultDTO);
+            }
+            else
+            {
+                return "/errors/404";
+            }
         }
         else
+        {
             return "/errors/404";
+        }
+
+        return "/members/list";
     }
 
     @GetMapping("/logout")

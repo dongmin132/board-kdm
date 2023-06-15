@@ -28,15 +28,29 @@ public class MemberServiceImpl implements MemberService {
         this.memberRepository = memberRepository;
     }
 
+
+
+
+
+    private void validateDuplicateMember(Member member) {       //이미 가입된 회원의 경우 예외 발생
+        MemberEntity findMember = memberRepository.findByEmail(member.getEmail()).orElseThrow();
+        if (findMember != null) {
+            throw new IllegalStateException("이미 가입된 회원입니다");
+        }
+    }
+
     @Override
     public int create(Member m) {
+        validateDuplicateMember(m);
         //DTO -> Entity : Repository에서 처리하기 위해
         MemberEntity entity = MemberEntity.builder()
                 .seq(m.getSeq())
                 .email(m.getEmail())
                 .name(m.getName())
                 .pw(m.getPw())
+                .phone(m.getPhone())
                 .build();
+
         if(memberRepository.save(entity)!= null)//저장 성공
             return 1;
         else
@@ -74,6 +88,7 @@ public class MemberServiceImpl implements MemberService {
                     .email(e.getEmail())
                     .name(e.getName())
                     .pw(e.getPw())
+                    .phone(e.getPhone())
                     .modDate(e.getModDate())
                     .regDate(e.getRegDate())
                     .build();
@@ -167,10 +182,11 @@ public class MemberServiceImpl implements MemberService {
         if(type.contains("n")) { // name으로 검색
             conditionBuilder.or(qMemberEntity.name.contains(keyword));
         }
-        /*
+
         if(type.contains("p")) { // phone로 검색
             conditionBuilder.or(qMemberEntity.phone.contains(keyword));
         }
+        /*
         if(type.contains("a")) { // address로 검색
             conditionBuilder.or(qMemberEntity.address.contains(keyword));
         } // 조건을 전부 줄 수도 있으니 if else문 아님

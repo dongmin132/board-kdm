@@ -39,6 +39,7 @@ public interface MemberService{
                 .email(entity.getEmail())
                 .name(entity.getName())
                 .pw(entity.getPw())
+                .phone(entity.getPhone())
                 .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
                 .build();

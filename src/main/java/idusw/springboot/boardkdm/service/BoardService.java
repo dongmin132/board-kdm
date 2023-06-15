@@ -16,7 +16,7 @@ public interface BoardService {
     PageResultDTO<Board,Object[]> findBoardAll(PageRequestDTO pageRequestDTO);         //게시물 목록 출력(페이지 처리, 정렬, 필터 ==? 검색)
     int updateBoard(Board board);       //게시물 정보
     int deleteBoard(Board board);       //게시물의 ID 값만
-
+    public void postLike(Long bno, String username);
     default BoardEntity dtoToEntity(Board dto) { // dto 객체를 entity 객체로 변환 : service -> repository
         MemberEntity member = MemberEntity.builder()
                 .seq(dto.getWriterSeq())
@@ -26,7 +26,9 @@ public interface BoardService {
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .writer(member)
+                .likeCount(dto.getLikeCount())
                 .build();
+
         return entity;
     }
 
@@ -39,9 +41,11 @@ public interface BoardService {
                 .writerSeq(memberEntity.getSeq())
                 .writerEmail(memberEntity.getEmail())
                 .writerName(memberEntity.getName())
+                .likeCount(entity.getLikeCount())
                 .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
                 .build();
+
         return dto;
     }
 }

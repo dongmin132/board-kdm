@@ -23,11 +23,12 @@ public class BoardControllerTest {
     void registerBoard() {
         Board board = Board.builder()
                 .bno(1L)
-                .title("TITLE")
-                .content("CONTENT")
+                .title("TITLE1")
+                .content("CONTENT1")
                 .writerSeq(1L)
                 .writerEmail("a@a")
                 .writerName("aaaaaaa")
+                .likeCount(0)
                 .build();
 
         if(boardService.registerBoard(board)>0)

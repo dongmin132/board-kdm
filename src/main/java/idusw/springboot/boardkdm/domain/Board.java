@@ -23,6 +23,7 @@ public class Board {
     private String writerEmail;
     private String writerName;
 
+    private Integer likeCount=0;
     //auditing
     private LocalDateTime regDate;
     private LocalDateTime modDate;

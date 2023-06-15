@@ -5,6 +5,7 @@ import idusw.springboot.boardkdm.entity.ReplyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 public interface ReplyRepository extends JpaRepository<ReplyEntity, Long> {
     @Modifying
     @Query("delete from ReplyEntity r where r.board.bno = :bno")
-    void deleteByBno(Long bno);
+    void deleteByBno(@Param("bno") Long bno);
 
     //List<ReplyEntity> getReplyEntitiesByBoardOrderByBno(BoardEntity board);
 

@@ -1,11 +1,13 @@
 package idusw.springboot.boardkdm.entity;
+import idusw.springboot.boardkdm.domain.Board;
 import lombok.*;
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.sql.results.graph.Fetch;
 
 @Entity
 @Table(name = "a201912018_board")
-
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,5 +30,14 @@ public class BoardEntity extends BaseEntity {
 
     @ManyToOne(fetch=FetchType.LAZY)
     private MemberEntity writer;  //연관 관계 지정 : 게시물 다수 - 작성자 1명
+
+    @Column
+    private Integer likeCount; // 좋아요 수를 나타내는 필드
+
+    public void updateForm(Board board) {
+        this.content = board.getContent();
+        this.title = board.getTitle();
+    }
+
 }
 
