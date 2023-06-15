@@ -17,6 +17,8 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long>,
     //'org.springframework.boot:spring-boot-starter-data-jpa' : spring-data-jpa 라이브러리에 포함
     Optional<MemberEntity> findByEmail(String email);
 
+    Optional<MemberEntity> findByMobile(String mobile);
+
 
     //JPQL
     @Query("select m from MemberEntity m where m.email = :email and m.pw = :pw")
