@@ -68,6 +68,8 @@ public class MemberServiceImpl implements MemberService {
         return member;
     }
 
+    
+
     @Override
     public List<Member> readList() {
         //1. 매개 변수를 처리하고(처리를 위해 객체 선언 및 초기화), 리파지터리 객체에게 전달
