@@ -41,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public int create(Member m) {
-        validateDuplicateMember(m);
+//        validateDuplicateMember(m);
         //DTO -> Entity : Repository에서 처리하기 위해
         MemberEntity entity = MemberEntity.builder()
                 .seq(m.getSeq())
