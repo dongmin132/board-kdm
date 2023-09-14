@@ -14,13 +14,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
 @Service
-
+@Transactional
 public class MemberServiceImpl implements MemberService {
     //생성자 주입
     MemberRepository memberRepository;
@@ -29,26 +30,35 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-
-
-
-    private void validateDuplicateMember(Member member) {       //이미 가입된 회원의 경우 예외 발생
-        MemberEntity findMember = memberRepository.findByEmail(member.getEmail()).orElseThrow();
-        if (findMember != null) {
-            throw new IllegalStateException("이미 가입된 회원입니다");
-        }
-    }
+//
+//
+//
+//    private void validateDuplicateMember(MemberEntity member) {       //이미 가입된 회원의 경우 예외 발생
+//        MemberEntity findMember = memberRepository.findByEmail(member.getEmail()).orElse(null);
+//        if (findMember != null) {
+//            throw new IllegalStateException("이미 가입된 회원입니다");
+//        }
+//    }
+//
+//
+//    private void validateDuplicatePhone(Member member) {       //이미 가입된 번호인 경우 예외 발생
+//        MemberEntity findPhone = memberRepository.findByMobile(member.getMobile()).orElse(null);
+//        if (findPhone != null) {
+//            throw new IllegalStateException("이미 가입된 번호입니다");
+//        }
+//    }
 
     @Override
     public int create(Member m) {
-//        validateDuplicateMember(m);
+
         //DTO -> Entity : Repository에서 처리하기 위해
         MemberEntity entity = MemberEntity.builder()
                 .seq(m.getSeq())
                 .email(m.getEmail())
                 .name(m.getName())
                 .pw(m.getPw())
-                .phone(m.getPhone())
+                .mobile(m.getMobile())
+                .zipcode(m.getZipcode())
                 .build();
 
         if(memberRepository.save(entity)!= null)//저장 성공
@@ -90,7 +100,8 @@ public class MemberServiceImpl implements MemberService {
                     .email(e.getEmail())
                     .name(e.getName())
                     .pw(e.getPw())
-                    .phone(e.getPhone())
+                    .mobile(e.getMobile())
+                    .zipcode(e.getZipcode())
                     .modDate(e.getModDate())
                     .regDate(e.getRegDate())
                     .build();
@@ -186,7 +197,7 @@ public class MemberServiceImpl implements MemberService {
         }
 
         if(type.contains("p")) { // phone로 검색
-            conditionBuilder.or(qMemberEntity.phone.contains(keyword));
+            conditionBuilder.or(qMemberEntity.mobile.contains(keyword));
         }
         /*
         if(type.contains("a")) { // address로 검색

@@ -23,12 +23,12 @@ public class QMemberEntity extends EntityPathBase<MemberEntity> {
 
     public final StringPath email = createString("email");
 
+    public final StringPath mobile = createString("mobile");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modDate = _super.modDate;
 
     public final StringPath name = createString("name");
-
-    public final StringPath phone = createString("phone");
 
     public final StringPath pw = createString("pw");
 
@@ -36,6 +36,8 @@ public class QMemberEntity extends EntityPathBase<MemberEntity> {
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
+
+    public final StringPath zipcode = createString("zipcode");
 
     public QMemberEntity(String variable) {
         super(MemberEntity.class, forVariable(variable));

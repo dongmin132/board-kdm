@@ -25,4 +25,6 @@ public class ReplyEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private BoardEntity board; // BoardEntity : MemberEntity = N : 1,
 
+    private int replierCount;
+
 }

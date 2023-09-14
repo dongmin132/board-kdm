@@ -34,6 +34,8 @@ public class QReplyEntity extends EntityPathBase<ReplyEntity> {
 
     public final StringPath replier = createString("replier");
 
+    public final NumberPath<Integer> replierCount = createNumber("replierCount", Integer.class);
+
     public final NumberPath<Long> rno = createNumber("rno", Long.class);
 
     public final StringPath text = createString("text");

@@ -29,7 +29,9 @@ public class MemberEntity extends BaseEntity {
     @Column(length = 20, nullable = false)
     private String pw;
 
-    private String phone;
+    private String mobile;
+
+    private String zipcode;
 
 }
 

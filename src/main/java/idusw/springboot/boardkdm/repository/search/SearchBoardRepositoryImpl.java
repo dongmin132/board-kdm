@@ -83,7 +83,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
         Sort sort = pageable.getSort();
         // tuple.orderBy(board.bno.desc());
         sort.stream().forEach(order -> {
-            Order direction = order.isAscending()? Order.ASC: Order.DESC;
+            Order direction = order.isAscending()? Order.DESC: Order.ASC;
             String prop = order.getProperty();
             PathBuilder orderByExpression = new PathBuilder(BoardEntity.class, "boardEntity");
             tuple.orderBy(new OrderSpecifier(direction, orderByExpression.get(prop)));

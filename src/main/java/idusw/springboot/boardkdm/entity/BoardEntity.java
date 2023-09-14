@@ -34,6 +34,9 @@ public class BoardEntity extends BaseEntity {
     @Column
     private Integer likeCount; // 좋아요 수를 나타내는 필드
 
+
+
+
     public void updateForm(Board board) {
         this.content = board.getContent();
         this.title = board.getTitle();
