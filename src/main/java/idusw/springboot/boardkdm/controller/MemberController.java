@@ -125,7 +125,7 @@ public class MemberController {
         Member member = (Member) session.getAttribute("mb");
         //List<Member> result = resultDTO.getDtoList();
         if (member != null) {
-            if (member.getEmail().equals("admin201912018@induk.ac.kr")) {
+            if (member.getEmail().equals("admin@admin")) {
                 model.addAttribute("result", resultDTO);
             }
             else
